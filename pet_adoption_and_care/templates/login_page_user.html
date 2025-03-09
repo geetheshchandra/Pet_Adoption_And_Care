@@ -1,0 +1,76 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <style>
+        /* Basic CSS Reset */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+            background-size: cover;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .login-container {
+            background-color: white;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            height: 370px;
+            transform: translateX(570px) translateY(100px);
+        }
+        .login-container h1 { text-align: center; font-size: 24px; color: #333; }
+        .login-container input[type="text"], .login-container input[type="password"] {
+            width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px;
+        }
+        .login-container input[type="submit"] {
+            width: 100%; padding: 10px; background-color: #4CAF50; color: white; border-radius: 5px;
+        }
+        .login-container input[type="submit"]:hover { background-color: #45a049; }
+        .error-message { color: red; text-align: center; margin-top: 10px; }
+
+        .forgot-password {
+           transform: translateY(30px) translateX(-30px);
+           
+
+        }
+        .register{
+           transform:translateX(160px) translateY(12px);
+
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Login</h1>
+        <form action="{% url 'login_page' %}?next={{ next }}" method="post" autocomplete="off">
+            {% csrf_token %}
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your username">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            {% if error_message %}
+                <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+            <input type="submit" value="Login">
+        </form>
+        <!-- &nbsp;&nbsp; -->
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+         
+        <div class="register">
+            <a href="{% url 'Register' %}">Register/Signup</a>
+        </div>
+
+
+    </div>
+</body>
+</html>

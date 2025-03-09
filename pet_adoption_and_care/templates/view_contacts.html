@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Branch Contacts</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f4f8;
+            color: #343a40;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+        }
+        p {
+            font-size: 1.2rem;
+            color: #6c757d;
+        }
+        .branch-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .branch-card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.2s;
+        }
+        .branch-card:hover {
+            transform: translateY(-5px);
+        }
+        .branch-card h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            color: #343a40;
+        }
+        .branch-card p {
+            margin: 5px 0;
+            font-size: 1rem;
+            color: #495057;
+        }
+        strong {
+            color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Branch Contacts</h1>
+            <p>Find your local branch manager and their contact details.</p>
+        </header>
+        <section class="branch-list">
+            {% if branches %}
+                {% for branch in branches %}
+                    <div class="branch-card">
+                        <h2>{{ branch.city }}</h2>
+                        <p><strong>Manager:</strong> {{ branch.manager }}</p>
+                        <p><strong>Manager Contact:</strong> {{ branch.manager.contact_no }}</p>
+                        <p><strong>Receptionist Contact:</strong> {{ branch.contact_no }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No branches available.</p>
+            {% endif %}
+        </section>
+    </div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+
+    <style>
+        /* Basic CSS Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}") ;
+background-size: cover;
+top:50%;
+width: 100%;
+min-height: 100vh;
+background-repeat: no-repeat;
+background-attachment: fixed;
+overflow-x: hidden;
+overflow-y: visible;
+margin: 0;
+padding: 0;
+        }
+
+        /* Login Form Container */
+        .login-container {
+            background-color: #ffffff;
+            padding: 50px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 350px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            margin-bottom: 5px;
+            font-size: 24px;
+            color: #333;
+        }
+
+        /* Input Fields */
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        /* Submit Button */
+        .login-container input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .login-container input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        /* Optional: Adding a link to the form */
+        .login-container .forgot-password {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .login-container .forgot-password a {
+            text-decoration: none;
+            color: #333;
+            font-size: 14px;
+        }
+
+        .error-message{
+            color: red; text-align: center; margin-top: 10px;
+
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container" style="transform: translateX(570px) translateY(100px);">
+        <h1>Login</h1>
+        <form action="{% url 'manager_login' %}" method = "post" autocomplete="off">
+            <!-- Username Field -->
+             {% csrf_token %}
+            <label for="username">Manager ID</label>
+            <input type="text" id="username" name="username" required placeholder="Enter your username">
+
+            <!-- Password Field -->
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required placeholder="Enter your password">
+            
+            {% if error_message %}
+                <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+
+            <!-- Submit Button -->
+            <input type="submit" value="Login">
+        </form>
+
+        <!-- Optional: Forgot Password Link -->
+        <div class="forgot-password">
+            <a href="#">Forgot Password?</a>
+        </div>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,165 @@
+{% load static %}
+{% load custom_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup Page</title>
+
+    <style>
+        body {
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+            background-size: cover;
+            width: 100%;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif; /* Moved to body for consistency */
+        }
+
+        .form-container {
+            background-color: aliceblue;
+            width: 500px;
+            padding: 20px;
+            margin: 50px auto; /* Centering the form vertically */
+            border-radius: 8px; /* Rounded corners */
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Adding shadow for depth */
+        }
+
+        .form-container h2 {
+            text-align: center;
+            background-color: darkkhaki;
+            padding: 2px 0; /* Added padding for better spacing */
+            margin: 0; /* Reset margin */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        .form-group {
+            margin-bottom: 15px; /* Spacing between form fields */
+            /* resize: none; */
+        }
+
+        .form-group label {
+            display: block; /* Make labels block elements */
+            font-weight: bold; /* Bold labels for emphasis */
+            margin-bottom: 5px; /* Space between label and input */
+            transform: translateX(15px);
+            /* resize: none; */
+        }
+
+        .form-input {
+            width: 460px; /* Full width of the container */
+            padding: 10px; /* Padding inside input */
+            border: 1px solid #ccc; /* Light border */
+            border-radius: 4px; /* Rounded corners */
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Inner shadow for depth */
+            resize: none;
+            transform: translateX(16px) ;
+            align-self: center;
+        }
+
+        .form-input:focus {
+            border-color: #4CAF50; /* Change border color on focus */
+            outline: none; /* Remove default outline */
+            box-shadow: 0 0 5px rgba(76, 175, 80, 0.5); /* Add shadow on focus */
+            /* resize: none; */
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50; /* Green background */
+            color: white; /* White text */
+            border: none; /* No border */
+            cursor: pointer; /* Pointer cursor */
+            font-size: 16px; /* Increase font size */
+            border-radius: 4px; /* Rounded corners */
+            margin-top: 10px; /* Space above button */
+            /* resize: none; */
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h2>Signup</h2>
+        <p style="text-align: center; color: black;">Fields marked with <span style="color: red;">*</span> are mandatory.</p>
+        <p style="text-align: center; color: black;">At least one of email and phone number is mandatory.</p>
+        <form method="post" action="{% url 'Register' %}">
+            {% csrf_token %}
+    
+            <div class="form-group">
+                <label for="id_user_name">Username <span style="color: red;">*</span>:</label>
+                {{ form.user_name|add_class:"form-input" }}
+                {% if form.user_name.errors %}
+                    <div style="color: red;">{{ form.user_name.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="id_pw">Password <span style="color: red;">*</span>:</label>
+                {{ form.pw|add_class:"form-input" }}
+                {% if form.pw.errors %}
+                    <div style="color: red;">{{ form.pw.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="repassword">Re-enter Password <span style="color: red;">*</span>:</label>
+                <input type="password" id="repassword" name="repassword" required class="form-input">
+                {% if form.pw.errors %}
+                    <div style="color: red;">{{ form.pw.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="id_owner_name">Owner Name <span style="color: red;">*</span>:</label>
+                {{ form.owner_name|add_class:"form-input" }}
+                {% if form.owner_name.errors %}
+                    <div style="color: red;">{{ form.owner_name.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="id_email_id">Email ID:</label>
+                {{ form.email_id|add_class:"form-input" }}
+                {% if form.email_id.errors %}
+                    <div style="color: red;">{{ form.email_id.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="id_phone_no">Phone Number:</label>
+                {{ form.phone_no|add_class:"form-input" }}
+                {% if form.phone_no.errors %}
+                    <div style="color: red;">{{ form.phone_no.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="id_city">City:</label>
+                {{ form.city|add_class:"form-input" }}
+                {% if form.city.errors %}
+                    <div style="color: red;">{{ form.city.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <div class="form-group">
+                <label for="id_address">Address <span style="color: red;">*</span>:</label>
+                {{ form.address|add_class:"form-input" }}
+                {% if form.address.errors %}
+                    <div style="color: red;">{{ form.address.errors }}</div>
+                {% endif %}
+            </div>
+    
+            <button type="submit" class="submit-button">
+                Sign Up
+            </button>
+        </form>
+    </div>
+</body>
+</html>

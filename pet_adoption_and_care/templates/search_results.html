@@ -1,0 +1,137 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+            background-size: cover;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+          
+        }
+        .results-container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .pet-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid #e1e1e1;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: #d2bcbc;
+            transition: transform 0.2s;
+        }
+        .pet-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+        .pet-card img {
+            border-radius: 8px;
+            max-width: 100px;
+            max-height: 100px;
+            object-fit: cover;
+        }
+        strong {
+            color: #555;
+        }
+        .pagination {
+            margin-top: 20px;
+            text-align: center;
+        }
+        .pagination a {
+            margin: 0 10px;
+            padding: 8px 15px;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .pagination a:hover {
+            background-color: #0056b3;
+        }
+        .adoption-button {
+            background-color: #28a745; /* Green color */
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .adoption-button:hover {
+            background-color: #218838; /* Darker green */
+        }
+    </style>
+</head>
+<body>
+    <div class="results-container">
+        <h2>Available Pets</h2>
+
+        {% if messages %}
+            <ul>
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+
+        {% if pets %}
+            {% for pet in pets %}
+                <div class="pet-card">
+                    <!-- Updated to show correct breed image -->
+                    <img src="{% static 'breeds/' %}{{ pet.image_filename }}" alt="{{ pet.breed }}">
+                    <!-- {{ pet.image_filename }} -->
+                    <div>
+                        <strong>Species:</strong> {{ pet.species }}<br>
+                        <strong>Breed:</strong> {{ pet.breed }}<br>
+                        <strong>Price:</strong> ₹{{ pet.price }}<br>
+                        <strong>Branch:</strong> {{ pet.branch.city }}<br>
+                        <strong>Contact No:</strong> {{ pet.branch.contact_no }}<br>
+                        <strong>Address:</strong> {{ pet.branch.address }}<br>
+                    </div>
+                    <form method="POST" style="display: inline;">
+                        {% csrf_token %}
+                        <input type="hidden" name="pet_id" value="{{ pet.av_id }}">
+                        <button type="submit" class="adoption-button" {% if pet.av_id in adoption_requests %}disabled{% endif %}>
+                            {% if pet.av_id in adoption_requests %}
+                                Adoption Requested
+                            {% else %}
+                                Request for Adoption
+                            {% endif %}
+                        </button>
+                    </form>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No pets found for the selected criteria.</p>
+        {% endif %}
+
+        <!-- Pagination -->
+        <div class="pagination">
+            {% if pets.has_previous %}
+                <a href="?page={{ pets.previous_page_number }}{% for species in selected_species %}&species={{ species }}{% endfor %}{% for branch in selected_branches %}&branch={{ branch }}{% endfor %}">Previous</a>
+            {% endif %}
+
+            <span style="color: black; font-size: 20px;">Page {{ pets.number }} of {{ pets.paginator.num_pages }}</span>
+
+            {% if pets.has_next %}
+                <a href="?page={{ pets.next_page_number }}{% for species in selected_species %}&species={{ species }}{% endfor %}{% for branch in selected_branches %}&branch={{ branch }}{% endfor %}">Next</a>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

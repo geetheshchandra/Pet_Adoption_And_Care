@@ -1,0 +1,153 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4; /* Keep a light gray background */
+            margin: 0;
+            padding: 20px;
+        }
+        .profile-container {
+            background-color: #f8dbdb; /* Very light gray for subtle contrast */
+            padding: 20px; /* Reduced padding for less height */
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: auto;
+            transition: box-shadow 0.3s, background-color 0.3s; /* Adjusted transition */
+            position: relative; /* Added position relative */
+            transform:translateY(40px);
+        }
+        .profile-container:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* Increase shadow on hover */
+            background-color: #f0f0f0; /* Slightly darker background on hover for effect */
+        }
+        .profile-container:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+            border-radius: 12px; /* Ensure the shadow is rounded */
+            z-index: -1; /* Place it behind the container */
+        }
+        .profile-container h1 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #4CAF50; /* Green color for the heading */
+            font-size: 24px; /* Heading font size */
+        }
+        .profile-container p {
+            margin: 8px 0; /* Adjusted margin for better spacing */
+            color: #333; /* Darker text for better readability */
+            font-size: 16px; /* Uniform font size */
+            line-height: 1.5; /* Improve spacing between lines */
+        }
+        .profile-detail {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+            padding: 8px 0; /* Reduced padding for less height */
+        }
+        .profile-detail:last-child {
+            border-bottom: none; /* Remove border for the last item */
+        }
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #4CAF50;
+            font-weight: bold;
+            padding: 10px 15px;
+            border: 2px solid #4CAF50;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-link:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="custom_header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'home_user' %}">HOME</a></li>
+                <li><a href="{% url 'About_user' %}">ABOUT</a></li>
+                <li><a href="{% url 'Profile' %}">PROFILE</a></li>
+                
+                <li><a href="{% url 'view_contacts' %}">CONTACTS</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">SERVICES</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{% url 'appointment' %}">Book an Appointment</a></li>
+                        <li><a href="{% url 'search_pets' %}">Adopt a Pet</a></li>
+                        <li><a href="{% url 'supplies' %}">Pet Supplies</a></li>
+                    </ul>
+                </li>
+                <!-- Profile Link -->
+                
+            </ul>
+        </nav>
+    </header>
+
+    <div class="profile-container">
+        <h1>Owner Profile</h1>
+        <div class="profile-detail">
+            <p><strong>Username:</strong></p>
+            <p>{{ owner.user_name }}</p>
+        </div>
+        <div class="profile-detail">
+            <p><strong>Name:</strong></p>
+            <p>{{ owner.owner_name }}</p>
+        </div>
+        <div class="profile-detail">
+            <p><strong>Email:</strong></p>
+            <p>{{ owner.email_id }}</p>
+        </div>
+        <div class="profile-detail">
+            <p><strong>Phone:</strong></p>
+            <p>{{ owner.phone_no }}</p>
+        </div>
+        <div class="profile-detail">
+            <p><strong>City:</strong></p>
+            <p>{{ owner.city }}</p>
+        </div>
+        <div class="profile-detail">
+            <p><strong>Address:</strong></p>
+            <p>{{ owner.address }}</p>
+        </div>
+        
+        <h2>Adoption Request Notifications</h2>
+        {% if adoption_requests %}
+            {% for request in adoption_requests %}
+                <div class="notification">
+                    <p>Your adoption request for pet ID {{ request.pet.pet_id }} has been <strong>{{ request.get_reqstatus_display }}</strong> on {{ request.request_date|date:"Y-m-d" }}.</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No new notifications.</p>
+        {% endif %}
+
+
+
+        <a href="{% url 'home_user' %}" class="back-link">Back to Home</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="{% url 'home_guest' %}" class="back-link">Logout</a>
+        &nbsp;&nbsp;&nbsp;
+        <a href="{% url 'owned_pets' %}" class="back-link">View Owned Pets</a>
+    </div>
+
+</body>
+</html>
+

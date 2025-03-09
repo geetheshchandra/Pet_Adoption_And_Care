@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Pet and Health Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .form-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-right: 20px;
+            flex: 1; /* Allows both boxes to grow equally */
+            min-width: 300px; /* Ensures boxes have a minimum width */
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+
+        .submit-button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px; /* Adds space above the button */
+        }
+
+        .submit-button:hover {
+            background-color: #45a049;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Register Pet and Health Status</h1>
+
+    <!-- Display error message if form is incomplete -->
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+    <form method="post" action="{% url 'register_pet_and_health_status' request_id=adoption_request.request_id %}">
+        {% csrf_token %}
+        
+        <div class="form-container">
+            <!-- OwnedPet Details Section -->
+            <div class="form-box">
+                <h2>Pet Details</h2>
+                <div class="form-group">
+                    <label for="pet_name">Pet Name <span style="color: red;">*</span>:</label>
+                    <input type="text" id="pet_name" name="pet_name" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="species">Species <span style="color: red;">*</span>:</label>
+                    <input type="text" id="species" name="species" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="breed">Breed <span style="color: red;">*</span>:</label>
+                    <input type="text" id="breed" name="breed" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="adoption_source">Adoption Source <span style="color: red;">*</span>:</label>
+                    <select id="adoption_source" name="adoption_source" class="form-input" required>
+                        <option value="" disabled selected>Select Adoption Source</option>
+                        <option value="Shop">Shop</option>
+                        <option value="External">External</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Health Status Section -->
+            <div class="form-box">
+                <h2>Health Status Details</h2>
+                <div class="form-group">
+                    <label for="age">Age <span style="color: red;">*</span>:</label>
+                    <input type="number" id="age" name="age" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="weight">Weight <span style="color: red;">*</span>:</label>
+                    <input type="number" id="weight" name="weight" required class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="allergies">Allergies:</label>
+                    <input type="text" id="allergies" name="allergies" class="form-input">
+                </div>
+
+                <div class="form-group">
+                    <label for="medications">Medications:</label>
+                    <input type="text" id="medications" name="medications" class="form-input">
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="submit-button">Register Pet and Health Status</button>
+    </form>
+
+</body>
+</html>

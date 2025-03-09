@@ -1,0 +1,70 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employees</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background-color: #fafafa;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .no-data {
+            color: #888;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Employees</h1>
+
+        <div class="section">
+            <h2>Employee List</h2>
+            {% if employees %}
+                {% for employee in employees %}
+                    <div class="card">
+                        <p><strong>Employee ID:</strong> {{ employee.emp_id }}</p>
+                        <p><strong>Name:</strong> {{ employee.emp_name }}</p>
+                        <p><strong>Contact:</strong> {{ employee.contact_no }}</p>
+                        <p><strong>Position:</strong> {{ employee.job_role }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p class="no-data">No employees found.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

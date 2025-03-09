@@ -1,0 +1,121 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pet Supply Shop</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        body {
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+            background-size: cover;
+            width: 100%;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+        }
+        .order-btn {
+            display: inline-block;
+            background-color: #28a745;
+            color: white;
+            padding: 6px 12px;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: 0.3s;
+        }
+        .order-btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header class="custom_header">
+        <nav>
+            <ul class="nav-list">
+                <li><a href="{% url 'home_user' %}">HOME</a></li>
+                <li><a href="{% url 'About_user' %}">ABOUT</a></li>
+                <li><a href="{% url 'Profile' %}">PROFILE</a></li>
+                <li><a href="{% url 'view_contacts' %}">CONTACTS</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropbtn">SERVICES</a>
+                    <ul class="dropdown-content">
+                        <li><a href="{% url 'appointment' %}">Book an Appointment</a></li>
+                        <li><a href="{% url 'search_pets' %}">Adopt a Pet</a></li>
+                        <li><a href="{% url 'supplies' %}">Pet Supplies</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    
+    <div class="container">
+        <h1>Available Pet Supplies</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Supply ID</th>
+                    <th>Product</th>
+                    <th>Type</th>
+                    <th>Price (₹)</th>
+                    <th>Quantity</th>
+                    <th>Supplier</th>
+                    <th>Order</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                {% for supply in pet_supplies %}
+                <tr>
+                    <td>{{ supply.supply_id }}</td>
+                    <td>{{ supply.product_name   }}</td>
+                    <td>{{ supply.supply_type }}</td>
+                    <td>{{ supply.unit_price }}</td>
+                    <td>{{ supply.quantity }}</td>
+                    <td>{{ supply.supplier_info|default:"N/A" }}</td>
+                    <td>
+                        {% if supply.quantity > 0 %}
+                            <a href="{% url 'ordered' %}" class="order-btn">Order Now</a>
+                        {% else %}
+                            <span style="color: red;">Out of Stock</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" style="text-align: center;">No supplies available</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

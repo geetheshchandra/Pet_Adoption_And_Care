@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select Pet to Update</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Select Pet to Update</h1>
+        <ul>
+            {% for pet in available_pets %}
+                <li>
+                    <a href="{% url 'update_available_pet' pet.av_id %}">{{ pet.species}}- {{pet.breed }}</a>
+                </li>
+            {% empty %}
+                <li>No available pets found.</li>
+            {% endfor %}
+        </ul>
+        <a href="{% url 'crud_operations_available_pet' %}" class="button">Back</a>
+    </div>
+</body>
+</html>

@@ -1,0 +1,235 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us - Pet Adoption and Care</title>
+    
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+
+      /* Background style for body */
+      body.body {
+        background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+        background-size: cover;
+        width: 100%;
+        min-height: 100vh;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        overflow-x: hidden;
+        
+      }
+
+      .nav_list {
+          list-style-type: none;
+          margin: 0;
+          padding: 0px;
+          justify-content: space-around;
+          position: absolute;
+          top: 50%;
+          left: 38%;
+          transform: translate(-30%, -50%);
+          width: 100%;
+      }
+
+      .nav_list li {
+          display: inline;
+          margin: 0 70px;
+          position: relative;
+          padding: 6px;
+      }
+
+      .nav_list a {
+          background-color: rgba(240, 248, 255, 0.9); /* Transparent background */
+          text-decoration: none;
+          color: black;
+          border-radius: 10px;
+          box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); 
+          padding: 2px;
+          font-size: 28px;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          transition: color 0.3s;
+      }
+
+      .nav_list a:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent hover effect */
+      }
+
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: rgba(249, 249, 249, 0.9); /* Transparent dropdown background */
+          min-width: 160px;
+          box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+          z-index: 1;
+          padding: 0;
+          left: -40px;
+          border-radius: 10px;
+          overflow: hidden;
+      }
+
+      .dropdown-content li {
+          display: block;
+          margin: 0;
+          height: min-content;
+      }
+
+      .dropdown-content a {
+          color: black;
+          padding: 4px 16px;
+          text-decoration: none;
+          display: block;
+          font-size: 18px;
+          text-align: left;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+
+      .dropdown-content a:hover {
+          color: white;
+          background-color: rgba(18, 61, 104, 0.8); /* Semi-transparent dropdown hover */
+      }
+
+      .dropdown:hover .dropdown-content {
+          display: block;
+          width: auto;
+          min-height: fit-content;
+      }
+
+      .custom_header{
+    display: flex;
+    position:relative;
+width:100%;
+height:50px;
+/* background-image: url(images/paws_2.webp);
+background-position: 0% 50% ;
+background-size: cover; */
+overflow: visible;
+
+}
+
+      header.custom_header,
+      section,
+      footer {
+          background-color: rgba(255, 255, 255, 0.8); /* Light transparency for sections */
+          padding: 1.5em;
+          border-radius: 8px;
+          margin: 1em auto;
+          
+      }
+
+    </style>
+</head>
+
+<body class="body">
+  <!-- Header Section -->
+  <header class="custom_header">
+    <nav>
+        <ul class="nav_list">
+            <li><a href="{% url 'home_guest' %}">HOME</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropbtn">SERVICES</a>
+              <ul class="dropdown-content">
+                  <li><a href="{% url 'login_page' %}">Book an Appointment</a></li>
+                  <li><a href="{% url 'login_page' %}">Adopt a Pet</a></li>
+                  <li><a href="{% url 'login_page' %}">Pet Supplies</a></li>
+              </ul>
+          </li>
+           
+            
+            <li><a href="{% url 'view_contacts' %}">CONTACTS</a></li>
+            <li><a href="{% url 'About_guest' %}">ABOUT</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropbtn">LOGIN</a>
+              <ul class="dropdown-content">
+                  <li><a href="{% url 'login_page' %}">Login as User</a></li>
+                  <li><a href="{% url 'manager_login' %}">Login as Manager</a></li>
+                  <li><a href="{% url 'Register' %}">Register/Sign Up</a></li>
+              </ul>
+          </li>
+           
+        </ul>
+    </nav>
+  </header>
+       
+  <header style="padding: 1em; text-align: center;">
+    <h1 style=" color: #007bff;">About Pet Adoption and Care</h1>
+    <p style="color: #666; font-size: 1.1em; max-width: 600px; margin: 0 auto;">
+      Learn more about our journey, our team, and how we make a difference in the lives of pets.
+    </p>
+  </header>
+
+  <!-- Our Story Section -->
+  <section style="text-align: center;">
+    <h2 style="color: #ff5722; font-size: 2em;">Our Story</h2>
+    <p style="color: #555; font-size: 1.1em; max-width: 800px; margin: 0 auto;">
+      Pet Adoption and Care was born from a passion for rescuing and caring for animals in need. Our founders started with a small group of volunteers and a few rescued pets, hoping to make a difference. Today, we've grown into a thriving community dedicated to matching loving homes with pets who need them most.
+    </p>
+  </section>
+
+  <!-- Meet the Team Section -->
+  <section style="padding: 3em; background-color: #ffffff; text-align: center;">
+    <h2 style="color: #4caf50; font-size: 2em;">Meet the Team</h2>
+    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 2em; margin-top: 2em;">
+        
+        <!-- Team Member 1 -->
+        <div style="background-color: rgba(227, 242, 253, 0.8); padding: 2em; border-radius: 8px; width: 250px;">
+            <h3 style="color: #1976d2;">Geethesh - Founder</h3>
+            &nbsp;
+            <p style="color: #666;">With over 10 years of experience in animal welfare, Geethesh leads our mission to find every pet a safe and loving home.</p>
+            &nbsp;
+            <p style="color: #666; transform: translateX(-24px);">Email: geetheshchandrak@gmail.com</p>
+        </div>
+
+        <!-- Team Member 2 -->
+        <div style="background-color:  rgba(241, 248, 233, 0.8); padding: 2em; border-radius: 8px; width: 250px;">
+            <h3 style="color: #1976d2;">Vamsi - Founder</h3>
+            &nbsp;
+            <p style="color: #666;">Vamsi is passionate about animal welfare and dedicated to creating innovative solutions that make pet care and adoption accessible to everyone.</p>
+            &nbsp;
+            <p style="color: #666; transform: translateX(-24px) translateY(-4px);">Email: vamsistudentmail@gmail.com</p>
+        </div>
+
+        <!-- Motivation Section -->
+        <div style="background-color:rgba(227, 242, 253, 0.8); padding: 2em; border-radius: 8px; width: 250px;">
+            <h3 style="color: #1976d2;">Motivation</h3>
+            <p style="color: #666;">Our commitment to animal welfare is driven by the belief that every pet deserves a loving home. We strive to inspire others to join our mission and make a difference in the lives of pets and their future families.</p>
+        </div>
+    </div>
+</section>
+
+
+  <!-- How You Can Help Section -->
+  <section style="text-align: center;">
+    <h2 style="color: #673ab7; font-size: 2em;">How You Can Help</h2>
+    <p style="color: #555; font-size: 1.1em; max-width: 800px; margin: 0 auto;">
+      There are many ways to support our cause. From donating to volunteering, your help can make a huge difference in the lives of our furry friends.
+    </p>
+    <ul style="list-style: none; padding: 0; margin-top: 1.5em;">
+      <li style="margin-bottom: 1em;">
+          <strong>Donate:</strong> Your contributions allow us to provide food, shelter, and medical care for our animals.
+      </li>
+      <li style="margin-bottom: 1em;">
+          <strong>Volunteer:</strong> Join our team of volunteers to help with events, adoptions, and daily pet care.
+      </li>
+      <li>
+          <strong>Foster:</strong> Provide a temporary home for pets awaiting adoption and be a key part of their journey to a forever home.
+      </li>
+    </ul>
+  </section>
+
+  <!-- Footer -->
+  
+      <footer style="background-color: rgba(51, 51, 51, 0.9); color: #fff; padding: 1.5em; text-align: center;transform:translateY(16px);border-radius: 0;">
+        <p>&copy; 2024 Pet Adoption and Care. All rights reserved.</p>
+      </footer>
+    
+    </body>
+    </html>

@@ -1,0 +1,206 @@
+
+
+.custom_header{
+    display: flex;
+    position:relative;
+width:100%;
+height:50px;
+/* background-image: url(images/paws_2.webp);
+background-position: 0% 50% ;
+background-size: cover; */
+overflow: visible;
+
+}
+
+.body{
+background-image: url( 'background_images/pet_bg_9.png') ;
+background-size: cover;
+top:50%;
+width: 100%;
+min-height: 100vh;
+background-repeat: no-repeat;
+background-attachment: fixed;
+overflow-x: hidden;
+overflow-y: visible;
+margin: 0;
+padding: 0;
+
+
+}
+
+.nav-list {
+    list-style-type: none; /* Removes bullet points */
+    margin: 0;
+    padding: 0px;
+    justify-content: space-around;
+    position: absolute; /* Allows positioning within the header */
+    top: 50%; /* Centers vertically */
+    left: 38%; /*Centers horizontally*/
+    transform: translate(-30%, -50%); /* Adjusts for the size of the list */
+    width:100%;
+}
+
+.nav-list li {
+    display: inline; /* Displays items in a row */
+    margin: 0 65px; /* Spacing between items */
+    position: relative;
+    padding: 6px;
+}
+
+.nav-list a {
+    background-color: aliceblue;
+    text-decoration: solid; /* Removes underline */
+    color: black; /* Text color */
+    text-shadow: black;
+    border-radius: 10px;
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); 
+    overflow: hidden;
+    padding: 2px;
+    font-size: 28px; /* Font size */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    transition: color 0.3s; /* Smooth transition for hover effect */
+}
+
+.nav-list a:hover {
+    color: white; /* Change color on hover */
+    background-color: black;
+}
+
+.dropdown {
+    position: relative; /* Ensure the dropdown menu appears below */
+    display: inline-block; /* Ensure it stays in-line with other items */
+}
+
+.dropdown-content {
+    display: none; /* Hidden by default */
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); /* Drop shadow */
+    z-index: 1;
+    padding: 0; /* Remove padding */
+    left:-40px;
+    right:0;
+    margin-top: 0px;
+    border-radius: 10px;
+    overflow: hidden;
+    
+}
+
+.dropdown-content li {
+    display: block; /* Vertical list */
+    margin: 0;
+    height: min-content;
+
+}
+
+.dropdown-content a {
+    color:black;
+    padding: 4px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 18px;
+    text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.dropdown-content a:hover {
+    color:white;
+    background-color: rgba(18, 61, 104, 0.968); /* Highlight on hover */
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block; /* Reveals the dropdown */
+    
+    width: auto;
+    min-height: fit-content;
+}
+
+.cloud-container {
+    background: white;
+    border-radius: 50px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    width: 300px;
+    text-align: center;
+    margin: 20px; /* Adjust this to control spacing */
+}
+
+#hero h1 {
+    font-size: 3em;
+    font-weight: bold;
+}
+
+#hero p {
+    font-size: 1.5em;
+}
+
+#hero a {
+    background-color: #FFD700;
+    padding: 10px 30px;
+    color: black;
+    font-size: 1.2em;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+/* Statistics Section Styling */
+#stats {
+    background-color: #f9f9f9;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+#stats div {
+    text-align: center;
+}
+
+#stats h3 {
+    font-size: 2.5em;
+}
+
+/* Featured Pets Section Styling */
+#featured-pets div img {
+    border-radius: 10px;
+}
+
+#featured-pets h3 {
+    font-size: 1.2em;
+}
+
+#featured-pets a {
+    color: #FFD700;
+    text-decoration: none;
+}
+
+/* Why Choose Us Section */
+#why-choose-us img {
+    width: 50px;
+}
+
+#why-choose-us h3 {
+    margin: 10px 0;
+    font-size: 1.3em;
+}
+
+#why-choose-us p {
+    font-size: 1em;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    #hero h1 {
+        font-size: 2em;
+    }
+
+    #stats div, #why-choose-us div, #featured-pets div {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    #stats, #featured-pets, #why-choose-us {
+        display: block;
+        padding: 20px;
+    }
+}

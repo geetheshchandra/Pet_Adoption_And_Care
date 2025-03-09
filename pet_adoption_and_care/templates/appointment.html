@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Appointment</title>
+    <style>
+      body.body {
+        background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+        background-size: cover;
+        width: 100%;
+        height: 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        overflow-x: hidden;
+        margin: 0; /* Ensure no margin around body */
+      }
+
+      .nav_list {
+          list-style-type: none;
+          margin: 0;
+          padding: 0px;
+          justify-content: space-around;
+          position: absolute;
+          top: 50%;
+          left: 38%;
+          transform: translate(-30%, -50%);
+          width: 100%;
+      }
+
+      .nav_list li {
+          display: inline;
+          margin: 0 60px;
+          position: relative;
+          padding: 6px;
+      }
+
+      .nav_list a {
+          background-color: rgba(240, 248, 255, 0.9); /* Transparent background */
+          text-decoration: none;
+          color: black;
+          border-radius: 10px;
+          box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2); 
+          padding: 2px;
+          font-size: 28px;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+          transition: color 0.3s;
+      }
+
+      .nav_list a:hover {
+          color: white;
+          background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent hover effect */
+      }
+
+      .dropdown {
+          position: relative;
+          display: inline-block;
+      }
+
+      .dropdown-content {
+          display: none;
+          position: absolute;
+          background-color: rgba(249, 249, 249, 0.9); /* Transparent dropdown background */
+          min-width: 160px;
+          box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.2);
+          z-index: 1;
+          padding: 0;
+          left: -40px;
+          border-radius: 10px;
+          overflow: hidden;
+      }
+
+      .dropdown-content li {
+          display: block;
+          margin: 0;
+          height: min-content;
+      }
+
+      .dropdown-content a {
+          color: black;
+          padding: 4px 16px;
+          text-decoration: none;
+          display: block;
+          font-size: 18px;
+          text-align: left;
+          font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      }
+
+      .dropdown-content a:hover {
+          color: white;
+          background-color: rgba(18, 61, 104, 0.8); /* Semi-transparent dropdown hover */
+      }
+
+      .dropdown:hover .dropdown-content {
+          display: block;
+          width: auto;
+          min-height: fit-content;
+      }
+
+      .custom_header {
+          display: flex;
+          position: relative;
+          width: 100%;
+          height: 50px;
+          overflow: visible;
+      }
+
+      header.custom_header,
+      section,
+      footer {
+          /* Removed background color to eliminate the whitish layer */
+          padding: 1.5em;
+          margin: 1em auto;
+      }
+
+      .appointment-container {
+          background-color: rgba(255, 255, 255, 0.9); /* You can adjust this for transparency */
+          padding: 30px;
+          border-radius: 10px;
+          max-width: 400px;
+          margin: 100px auto;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .form-group {
+          margin-bottom: 15px;
+      }
+
+      label {
+          display: block;
+          margin-bottom: 5px;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      select {
+          width: 100%;
+          padding: 8px;
+          margin-top: 4px;
+          border: 1px solid #ccc;
+          border-radius: 5px;
+      }
+
+      .submit-btn {
+          width: 100%;
+          padding: 10px;
+          background-color: #FFD700;
+          color: black;
+          font-size: 1em;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+
+      .submit-btn:hover {
+          background-color: #e6c200;
+      }
+    </style>
+</head>
+<body class="body">
+  
+  <header class="custom_header">
+    <nav>
+        <ul class="nav_list">
+            <li><a href="{% url 'home_user' %}">HOME</a></li>
+            <li><a href="{% url 'About_user' %}">ABOUT</a></li>
+            <li><a href="#">SERVICES</a></li>
+            <li><a href="{% url 'view_contacts' %}">CONTACTS</a></li>
+            <li><a href="{% url 'Profile' %}">PROFILE</a></li>
+           
+        </ul>
+    </nav>
+  </header>
+
+  <!-- Appointment Section -->
+  <section class="appointment-section">
+    <div class="appointment-container">
+      <h1 style="font-size: 2em; text-align: center; color: #555;">Book a Healthcare Appointment</h1>
+      
+      <!-- Small Text to Register Pet if Unregistered -->
+      <p style="text-align: center; color: red; font-size: 0.9em;">
+        If your pet is not registered, <a href="{% url 'register_pet_page' %}" style="color: red; text-decoration: underline;">register now</a>.
+      </p>
+      
+      <!-- Appointment Form -->
+      <form action="{% url 'book_appointment' %}" method="post">
+        {% csrf_token %}
+        <!-- Pet ID Input -->
+        <div class="form-group">
+          <label for="pet_id">Pet ID (for registered pets only):</label>
+          <input type="text" id="pet_id" name="pet_id" placeholder="Enter Pet ID" required>
+        </div>
+
+        <!-- Appointment Date Picker -->
+        <div class="form-group">
+          <label for="appointment_date">Appointment Date:</label>
+          <input type="date" id="appointment_date" name="appointment_date" required>
+        </div>
+
+        <!-- Appointment Time Slot Dropdown -->
+        <div class="form-group">
+          <label for="time_slot">Time Slot:</label>
+          <select id="time_slot" name="time_slot" required>
+            <option value="">Select a time slot</option>
+            <option value="09:00">09:00 AM - 11:00 AM</option>
+            <option value="11:00">11:00 AM - 1:00 PM</option>
+            <option value="13:00">1:00 PM - 3:00 PM</option>
+            <option value="15:00">3:00 PM - 5:00 PM</option>
+            <option value="17:00">5:00 PM - 7:00 PM</option>
+          </select>
+        </div>
+
+        <!-- City Dropdown -->
+        <div class="form-group">
+          <label for="city">City:</label>
+          <select id="city" name="city" required>
+            <option value="">Select your city</option>
+            <option value="Mumbai">City A</option>
+            <option value="Varanasi">City B</option>
+            <option value="Hyderabad">City C</option>
+            <option value="Delhi">City D</option>
+          </select>
+        </div>
+
+        <!-- Submit Button -->
+        <button type="submit" class="submit-btn">Book Appointment</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Background Styling -->
+  
+</body>
+</html>

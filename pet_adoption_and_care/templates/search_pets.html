@@ -1,0 +1,124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Pets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+            background-size: cover;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+        }
+        .search-container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #dfc6c6;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .field-group {
+            margin-bottom: 20px;
+        }
+        .field-group label {
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .checkbox-group label {
+            margin-right: 10px;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit-btn:hover {
+            background-color: #218838;
+        }
+        .message1 {
+            color: black;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="search-container">
+        <form method="GET" action="{% url 'search_results' %}">
+            <!-- Species Checkboxes -->
+            <div class="field-group">
+                <label for="species">Species:</label>
+                <div class="checkbox-group">
+                    {% for option in species_options %}
+                        <label>
+                            <input type="checkbox" name="species" value="{{ option }}">
+                            {{ option }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Branch (City) Checkboxes -->
+            <div class="field-group">
+                <label for="branch">Branch City:</label>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" name="branch" value="Mumbai">
+                        Mumbai
+                    </label>
+                    <label>
+                        <input type="checkbox" name="branch" value="Bangalore">
+                        Bangalore
+                    </label>
+                    <label>
+                        <input type="checkbox" name="branch" value="Varanasi">
+                        Varanasi
+                    </label>
+                    <label>
+                        <input type="checkbox" name="branch" value="Delhi">
+                        Delhi
+                    </label>
+                    <label>
+                        <input type="checkbox" name="branch" value="Hyderabad">
+                        Hyderabad
+                    </label>
+                </div>
+            </div>
+
+            <!-- Price Range Checkboxes -->
+            <div class="field-group">
+                <label for="price_range">Price Range:</label>
+                <div class="checkbox-group">
+                    {% for range, label in price_ranges %}
+                        <label>
+                            <input type="checkbox" name="price_range" value="{{ range }}">
+                            {{ label }}
+                        </label>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="submit-btn">Search</button>
+
+            <!-- Display message if no options are selected -->
+            {% if not species_options and not branch_options and not price_ranges %}
+                <p class="message1">Please select at least one filter to see results.</p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

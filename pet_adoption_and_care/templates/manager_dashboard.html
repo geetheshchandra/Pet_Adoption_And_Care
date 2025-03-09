@@ -1,0 +1,134 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manager Dashboard</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+         .supply-orders, .crud-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+        }
+        .crud-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+            transform: translateY(-30px);
+        }
+        .logout{
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ff4c4c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            margin-bottom: 20px;
+            transform: translateX(1100px) translateY(-53px);
+        }
+        .logout:hover, .supply-orders:hover, .crud-button:hover {
+            background-color: #e63939;
+        }
+        .section {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+        .card {
+            flex: 1 1 30%;
+            margin: 10px;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fafafa;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: scale(1.05);
+        }
+        .card h2 {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .no-data {
+            color: #888;
+            font-style: italic;
+        }
+        .view-all-btn {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 15px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .view-all-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manager Dashboard</h1>
+        <a href="{% url 'logout' %}" class="logout">Logout</a>
+        
+
+        <div>
+            <a href="{% url 'crud_operations_employee' %}" class="crud-button">Manage Employees</a>
+            <a href="{% url 'crud_operations_available_pet' %}" class="crud-button">Manage Available Pets</a>
+        </div>
+
+        <div class="section">
+            <div class="card">
+                <h2>Employees</h2>
+                <p>Total Employees: {{ employees.count }}</p>
+                <a href="{% url 'view_all_employees' %}" class="view-all-btn">View All Employees</a>
+            </div>
+
+            <div class="card">
+                <h2>Available Pets</h2>
+                <p>Total Pets: {{ available_pets.count }}</p>
+                <a href="{% url 'view_all_available_pets' %}" class="view-all-btn">View All Pets</a>
+            </div>
+
+            <div class="card">
+                <h2>Adoption Requests</h2>
+                <p>Total Pending Requests: {{ pending_adoption_requests.count }}</p>
+                <a href="{% url 'view_all_adoption_requests' %}" class="view-all-btn">View All Adoption Requests</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

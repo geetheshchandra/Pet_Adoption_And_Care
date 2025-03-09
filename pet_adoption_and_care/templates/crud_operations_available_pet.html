@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Operations</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        
+
+        <h2>Available Pets</h2>
+        <a href="{% url 'create_available_pet' %}" class="button">Add Available Pet</a>
+        <a href="{% url 'select_available_pet' %}" class="button">Update Available Pet</a>
+        <a href="{% url 'delete_available_pet' %}" class="button">Delete Available Pet</a>
+
+        <a href="{% url 'manager_dashboard' %}" class="button">Back to Dashboard</a>
+    </div>
+</body>
+</html>

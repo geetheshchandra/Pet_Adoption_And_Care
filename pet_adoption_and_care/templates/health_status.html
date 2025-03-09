@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Status of {{ health_status.pet.pet_name }}</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .health-status-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 600px;
+            margin: auto;
+            text-align: center;
+        }
+        h1 {
+            color: #4CAF50;
+        }
+        .back-link {
+            margin-top: 20px;
+            display: inline-block;
+            padding: 8px 12px;
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .back-link:hover {
+            background-color: #4CAF50;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="health-status-card">
+        <h1>Health Status of {{ health_status.pet.pet_name }}</h1>
+        <p><strong>Age:</strong> {{ health_status.age }} years</p>
+        <p><strong>Weight:</strong> {{ health_status.weight }} kg</p>
+        <p><strong>Allergies:</strong> {{ health_status.allergies|default:"None" }}</p>
+        <p><strong>Medications:</strong> {{ health_status.medications|default:"None" }}</p>
+        <p><strong>Last Checkup Date:</strong> {{ health_status.last_checkup_date|date:"F d, Y"|default:"N/A" }}</p>
+        <p><strong>Next Checkup Date:</strong> {{ health_status.next_checkup_date|date:"F d, Y"|default:"N/A" }}</p>
+
+        <a class="back-link" href="{% url 'owned_pets' %}">Back to Owned Pets</a>
+        &nbsp;&nbsp; 
+        <a class="back-link" href="{% url 'download_health_status' health_status.pet.pet_id %}">Download Health Status</a>
+
+    </div>
+
+</body>
+</html>

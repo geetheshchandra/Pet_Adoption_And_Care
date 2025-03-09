@@ -1,0 +1,142 @@
+{% load static %}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <title>HOME_PAGE</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+   <style>
+     body {
+            font-family: Arial, sans-serif;
+            background-image: url("{% static 'background_images/pet_bg_9.png' %}");
+            background-size: cover;
+            min-height: 100vh;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+   </style>
+   
+</head>
+
+
+<body >
+  <header class="custom_header">
+    <nav>
+        <ul class="nav-list">
+            <li><a href="{% url 'home_guest' %}">HOME</a></li>
+            <li class="dropdown">
+                <a href="#" class="dropbtn">SERVICES</a>
+                <ul class="dropdown-content">
+                    <li><a href="{% url 'login_page' %}?next={% url 'appointment' %}">Book an Appointment</a></li>
+                    <li><a href="{% url 'login_page' %}?next={% url 'search_pets' %}">Adopt a Pet</a></li>
+                    <li><a href="{% url 'login_page' %}?next={% url 'supplies' %}">Pet Supplies</a></li>
+                </ul>
+            </li>
+            <li><a href="{% url 'view_contacts' %}">CONTACTS</a></li>
+            <li><a href="{% url 'About_guest' %}">ABOUT</a></li>
+            
+
+            <!-- Dropdown Menu for Login -->
+            <li class="dropdown">
+                <a href="#" class="dropbtn">LOGIN</a>
+                <ul class="dropdown-content">
+                    <li><a href="{% url 'login_page' %}">Login as User</a></li>
+                    <li><a href="{% url 'manager_login' %}">Login as Manager</a></li>
+                    <li><a href="{% url 'Register' %}">Register/Sign Up</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+       
+<!-- Hero Section -->
+
+    <div style="background-color: rgba(21, 225, 211, 0.5); padding: 40px; border-radius: 10px; width: 400px;  transform: translateX(560px) translateY(40px); opacity: 1; ">
+        <h1 style="font-size: 3em; margin: 0;">Find Your Perfect Companion</h1>
+        <p style="font-size: 1.5em;font-family: Helvetica, sans-serif; margin: 20px 0; color: black;background-color: aliceblue;opacity: 0.9;transform: translateY(-10px);">"Adopt a Pet Today and Give Them a Forever Home"</p>
+    
+        <a href="{% url 'login_page' %}" style="padding: 10px 30px; background-color: #FFD700; color: black; font-size: 1.2em; text-decoration: none; border-radius: 5px;transform: translateY(10px);">View Pets</a>
+    </div>
+
+<!-- Key Statistics Section -->
+<section id="stats" style="background-color:transparent; padding: 40px 20px; text-align: center;">
+    <h2 style="margin-bottom: 30px; font-size: 2em;background-color: aliceblue;opacity: 0.9;text-align: center;width:fit-content;transform: translateX(635px);">Our Achievements</h2>
+    <div style="display: flex; justify-content: space-around;">
+        <div>
+            <h3 style="font-size: 2.5em; margin: 0; background-color: #FFD700;box-shadow: 0 2px 4px;">500+</h3>
+            <p style = "text-decoration: solid;font-size: 30px;background-color: aliceblue;opacity: 0.9;">Pets Adopted</p>
+        </div>
+        <div>
+            <h3 style="font-size: 2.5em; margin: 0;background-color: #FFD700;box-shadow: 0 2px 4px;width:fit-content;transform: translateX(135px);">95%</h3>
+            <p style = "text-decoration: solid;font-size: 30px;background-color: aliceblue;opacity: 0.9;transform: translateX(40px);">Customer Satisfaction</p>
+        </div>
+        <div>
+            <h3 style="font-size: 2.5em; margin: 0;background-color: #FFD700;box-shadow: 0 2px 4px;width: fit-content;transform: translateX(100px);">4</h3>
+            <p style = "text-decoration: solid;font-size: 30px;background-color: aliceblue;opacity: 0.9;">Years of Experience</p>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Pets Section -->
+<section id="featured-pets" style="padding: 30px 20px; text-align: center;">
+    <h2 style="margin-bottom: 30px; font-size: 2em;background-color: aliceblue;opacity: 0.9;width: fit-content;transform: translateX(560px);">Meet Our Featured Pets</h2>
+    <div style="display: flex; justify-content: space-around;">
+        <!-- Pet 1 -->
+        <div style="width: 200px; text-align: center; transform: translateY(70px);">
+            <img src="{% static 'pets/pet1.jpeg' %}" style="width: 100%; border-radius: 10px;">
+            <h3 style="margin: 10px 0;background-color: #FFD700;box-shadow: 0 2px 4px;opacity: 0.9;width: fit-content;transform: translateX(76px);">Bella</h3>
+            <p style = "font-size: 20px;background-color: aliceblue;opacity: 0.9;font-weight: bold;">2 years old,Holland Lop </p>
+            <a href="{% url 'login_page' %}" style="color: black; text-decoration: none;background-color: #FFD700;box-shadow: 0 2px 4px;opacity: 0.9;font-weight:bold ;">View More</a>
+        </div>
+        <!-- Pet 2 -->
+        <div style="width: 200px; text-align: center;">
+            <img src="{% static 'pets/pet2.jpeg' %}" style="width: 100%; border-radius: 10px;">
+            <h3 style="margin: 10px 0;background-color: #FFD700;box-shadow: 0 2px 4px;opacity: 0.9;width: fit-content;transform: translateX(76px);">Max</h3>
+            <p style = "font-size: 20px;background-color: aliceblue;opacity: 0.9;font-weight: bold;">1.5 years old, German Shepherd</p>
+            <a href="{% url 'login_page' %}" style="color: black; text-decoration: none;background-color: #FFD700;box-shadow: 0 2px 4px;opacity: 0.9;font-weight:bold ;">View More</a>
+        </div>
+        <!-- Pet 3 -->
+        <div style="width: 200px; text-align: center;">
+            <img src="{% static 'pets/pet3.jpeg' %}" style="width: 100%; border-radius: 10px;">
+            <h3 style="margin: 10px 0;background-color: #FFD700;box-shadow: 0 2px 4px;opacity: 0.9;width: fit-content;transform: translateX(76px);">Lucy</h3>
+            <p style="font-size: 20px; background-color: aliceblue;opacity: 0.9;font-weight: bold;">3 years old, Tabby Cat</p>
+            <a href="{% url 'login_page' %}" style="color: black; text-decoration: none;background-color: #FFD700;box-shadow: 0 2px 4px;opacity: 0.9;font-weight:bold ;">View More</a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section id="why-choose-us" style="background-color: transparent; padding: 40px 20px; text-align: center;">
+    <h2 style="margin-bottom: 30px; font-size: 2em;background-color: aliceblue;opacity: 0.9;width: fit-content;transform: translateX(585px);">Why Choose Us?</h2>
+    <div style="display: flex; justify-content: space-around;">
+        <div style="width: 200px; text-align: center;background-color: rgba(21, 225, 211, 0.5);">
+            <img src="{% static 'images/team.jpeg' %}" alt="Dedicated Team" style="width: 100px;height: 90px;transform: translateY(8px);">
+            <h3 style="margin: 10px 0;background-color: aliceblue;opacity: 0.9;width: fit-content;transform:translateX(28px) ;">Dedicated Team</h3>
+            <p style="font-weight: bold;">We have a passionate team committed to animal care.</p>
+        </div>
+        <div style="width: 200px; text-align: center;background-color: rgba(21, 225, 211, 0.5);">
+            <img src="{% static 'images/pet_health_2.jpg' %}" alt="Healthy Pets" style="width: 150px;height:90px;transform: translateY(8px);">
+            <h3 style="margin: 10px 0;background-color: aliceblue;opacity: 0.9;width: fit-content;transform:translateX(43px);">Healthy Pets</h3>
+            <p style="font-weight: bold;">All pets are regularly checked by certified veterinarians.</p>
+        </div>
+        <div style="width: 200px; text-align: center;background-color: rgba(21, 225, 211, 0.5);">
+            <img src="{% static 'images/adopt_logo.jpg' %}" alt="Simple Process" style="width: 150px;height:90px;transform: translateY(8px);">
+            <h3 style="margin: 10px 0;background-color: aliceblue;opacity: 0.9;width: fit-content;transform:translateX(33px);">Simple Process</h3>
+            <p style="font-weight: bold;">Our adoption process is transparent and stress-free.</p>
+        </div>
+    </div>
+</section>
+
+
+
+    
+</body>
+</html>
+

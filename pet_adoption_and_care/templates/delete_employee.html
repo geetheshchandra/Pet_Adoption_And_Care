@@ -1,0 +1,54 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Employee</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <style>
+        /* Your existing CSS */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 10px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Delete Employee</h1>
+        <form method="post">
+            {% csrf_token %}
+            <label for="employee_id">Select Employee to Delete:</label>
+            <select name="employee_id" id="employee_id">
+                {% for employee in employees %}
+                    <option value="{{ employee.emp_id }}">{{ employee.emp_name }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="button">Delete Employee</button>
+        </form>
+        <a href="{% url 'crud_operations_employee' %}" class="button">Back</a>
+    </div>
+</body>
+</html>
