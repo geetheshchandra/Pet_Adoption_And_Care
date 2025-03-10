@@ -619,8 +619,27 @@ def appointment(request):
     return render(request,'appointment.html')
 
 def supplies(request):
-    pet_supplies = PetSupply.objects.all()  # Fetch all pet supplies from the database
-    return render(request, 'supplies.html', {'pet_supplies': pet_supplies})
+    selected_type = request.GET.get('type', '')
+    
+    # Filter supplies by type if a type is selected
+    if selected_type:
+        pet_supplies = PetSupply.objects.filter(supply_type=selected_type)
+    else:
+        pet_supplies = PetSupply.objects.all()
+
+    # Pagination setup (5 items per page)
+    paginator = Paginator(pet_supplies, 5)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    # Fetch distinct supply types for the dropdown
+    supply_types = PetSupply.objects.values_list('supply_type', flat=True).distinct()
+
+    return render(request, 'supplies.html', {
+        'page_obj': page_obj,
+        'supply_types': supply_types,
+        'selected_type': selected_type,
+    })
 
 def ordered(request):
     return render(request,'ordered.html')
