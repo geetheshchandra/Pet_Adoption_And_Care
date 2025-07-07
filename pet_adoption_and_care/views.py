@@ -51,20 +51,29 @@ def about_guest(request):
 def about_user(request):
     return render(request,'about_user.html')
 
+from django.http import HttpResponseServerError
+
 def register_page(request):
-    if request.method == "POST":
-        form = OwnerRegistrationForm(request.POST)
-        repassword = request.POST.get('repassword')
-        
-        if form.is_valid() and form.cleaned_data.get("pw") == repassword:
-            form.save()
-            return redirect(reverse('login_page'))
+    try:
+        if request.method == "POST":
+            form = OwnerRegistrationForm(request.POST)
+            repassword = request.POST.get('repassword')
+            
+            if form.is_valid() and form.cleaned_data.get("pw") == repassword:
+                form.save()
+                return redirect(reverse('login_page'))
+            else:
+                if form.cleaned_data.get("pw") != repassword:
+                    form.add_error("pw", "Passwords do not match")
         else:
-            if form.cleaned_data.get("pw") != repassword:
-                form.add_error("pw", "Passwords do not match")
-    else:
-        form = OwnerRegistrationForm()
-    return render(request, 'register_page.html', {'form': form})
+            form = OwnerRegistrationForm()
+        return render(request, 'register_page.html', {'form': form})
+    
+    except Exception as e:
+        import traceback
+        print(traceback.format_exc())  # This will go to Railway logs
+        return HttpResponseServerError("Server error. Check logs.")
+
 
 
 @never_cache
