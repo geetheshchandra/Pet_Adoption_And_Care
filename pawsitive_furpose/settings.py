@@ -33,6 +33,9 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    'https://petadoptionandcare-production.up.railway.app',
+]
 
 # Application definition
 
@@ -140,9 +143,7 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # for collectstatic
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-CSRF_TRUSTED_ORIGINS = [
-    'https://petadoptionandcare-production.up.railway.app',
-]
+
 
 
 # Default primary key field type
