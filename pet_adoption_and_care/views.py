@@ -24,8 +24,6 @@ def homepage(request):
 
 
 
-def register_page(request):
-    return render(request,'register_page.html')
 
 def profile(request):
     owner_id = request.session.get('owner_id')
