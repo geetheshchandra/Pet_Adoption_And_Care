@@ -85,8 +85,12 @@ WSGI_APPLICATION = 'pawsitive_furpose.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'itw2_project',
+        'USER' : 'root',
+        'PASSWORD' : 'lunala@2315',
+        'HOST' : 'localhost',
+        'PORT' : '3306'
     }
 }
 
