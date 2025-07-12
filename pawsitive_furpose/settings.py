@@ -95,11 +95,11 @@ WSGI_APPLICATION = 'pawsitive_furpose.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('MYSQL_NAME'),
-        'USER': os.getenv('MYSQL_USER'),
-        'PASSWORD': os.getenv('MYSQL_PASSWORD'),
-        'HOST': os.getenv('MYSQL_HOST', 'localhost'),
-        'PORT': os.getenv('MYSQL_PORT', '3306'),
+        'NAME': os.getenv('MYSQL_NAME') or os.getenv('MYSQLDATABASE'),
+        'USER': os.getenv('MYSQL_USER') or os.getenv('MYSQLUSER'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD') or os.getenv('MYSQLPASSWORD'),
+        'HOST': os.getenv('MYSQL_HOST') or os.getenv('MYSQLHOST', 'localhost'),
+        'PORT': os.getenv('MYSQL_PORT') or os.getenv('MYSQLPORT', '3306'),
     }
 }
 
