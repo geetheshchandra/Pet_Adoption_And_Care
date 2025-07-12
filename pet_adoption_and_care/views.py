@@ -738,7 +738,16 @@ from .models import HealthStatus  # Adjust the import as needed
 
 # Configuration for pdfkit
 # config = pdfkit.configuration(wkhtmltopdf=r"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
-config = pdfkit.configuration(wkhtmltopdf='/app/bin/wkhtmltopdf')
+env = os.getenv('ENVIRONMENT', 'local')
+
+if env == 'production':
+    # Railway environment
+    wkhtmltopdf_path = '/app/bin/wkhtmltopdf'
+else:
+    # Local Windows path (adjust if needed)
+    wkhtmltopdf_path = r"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
+    
+config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
 
 
 def download_health_status(request, pet_id):
