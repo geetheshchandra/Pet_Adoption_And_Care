@@ -752,7 +752,7 @@ env = os.getenv('ENVIRONMENT', 'local')
 
 if env == 'production':
     # Railway environment
-    wkhtmltopdf_path = '/app/bin/wkhtmltopdf'
+    wkhtmltopdf_path = '/usr/bin/wkhtmltopdf'
 else:
     # Local Windows path (adjust if needed)
     wkhtmltopdf_path = r"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe"
