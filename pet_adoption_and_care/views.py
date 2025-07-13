@@ -26,7 +26,7 @@ def homepage(request):
 def load_data_view(request):
     if os.getenv("ENVIRONMENT") == "production":
         try:
-            call_command("loaddata", "data.json")
+            call_command('loaddata', 'cleaned_data.json')
             return HttpResponse("Data loaded successfully.")
         except Exception as e:
             return HttpResponse(f"Error: {str(e)}")
