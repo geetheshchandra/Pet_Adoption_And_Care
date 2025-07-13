@@ -17,10 +17,20 @@ from django.db import IntegrityError
 from .forms import AvailablePetForm,EmployeeForm
 from django.conf import settings
 from django.templatetags.static import static
+from django.core.management import call_command
+
 
 def homepage(request):
     return render(request,'home_guest.html')
 
+def load_data_view(request):
+    if os.getenv("ENVIRONMENT") == "production":
+        try:
+            call_command("loaddata", "data.json")
+            return HttpResponse("Data loaded successfully.")
+        except Exception as e:
+            return HttpResponse(f"Error: {str(e)}")
+    return HttpResponse("Not in production.")
 
 
 
