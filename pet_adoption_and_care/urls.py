@@ -28,7 +28,6 @@ urlpatterns = [
     path('pets/create/',  views.create_available_pet, name='create_available_pet'),
     path('select-available-pet/', views.select_available_pet_to_update, name='select_available_pet'),
     path('update-available-pet/<int:pet_id>/', views.update_available_pet, name='update_available_pet'),
-    path('load-data/', views.load_data_view),
     path('pets/delete/',  views.delete_available_pet, name='delete_available_pet'),
     path('appointment/',views.appointment,name='appointment'),
     path('register_pet_page/',views.register_pet_page,name='register_pet_page'),
