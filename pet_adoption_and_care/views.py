@@ -1,38 +1,22 @@
-from datetime import datetime, timezone,date
-from functools import reduce
+from datetime import datetime,date
 from django.shortcuts import render,redirect,get_object_or_404
 from django.http import HttpResponse
-from .forms import OwnerRegistrationForm,LoginForm
+from .forms import OwnerRegistrationForm
 from django.urls import reverse
-from django.contrib.auth import authenticate, login
 from .models import Owner,Manager,AvailablePet,Branch,AdoptionRequest,Employee,OwnedPet,HealthStatus,PetSupply
 from django.views.decorators.cache import never_cache
-from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
-from django.db.models import Q
 from django.contrib import messages
 from decimal import Decimal
 from datetime import timedelta,datetime
-from django.db import IntegrityError
 from .forms import AvailablePetForm,EmployeeForm
 from django.conf import settings
-from django.templatetags.static import static
-from django.core.management import call_command
+import pdfkit
+import os
 
 
 def homepage(request):
     return render(request,'home_guest.html')
-
-def load_data_view(request):
-    if os.getenv("ENVIRONMENT") == "production":
-        try:
-            call_command('loaddata', 'cleaned_data.json')
-            return HttpResponse("Data loaded successfully.")
-        except Exception as e:
-            return HttpResponse(f"Error: {str(e)}")
-    return HttpResponse("Not in production.")
-
-
 
 
 def profile(request):
@@ -160,8 +144,6 @@ def search_pets(request):
         'price_ranges': price_ranges,
     })
 
-
-import os
 
 def search_results(request):
     pets = AvailablePet.objects.filter(status='Available')
@@ -332,27 +314,6 @@ def view_all_adoption_requests(request):
         })
 
 
-
-
-# def request_adoption(request):
-#     if request.method == 'POST':
-#         pet_id = request.POST.get('pet_id')
-#         owner = get_object_or_404(Owner, user=request.user)
-#         pet = get_object_or_404(AvailablePet, av_id=pet_id)
-        
-#         try:
-#             # Attempt to create a new AdoptionRequest
-#             AdoptionRequest.objects.create(owner=owner, pet=pet, reqstatus='Pending')
-#             messages.success(request, "Your adoption request has been submitted successfully!")
-#         except IntegrityError:
-#             # Handle duplicate request
-#             messages.warning(request, "You have already requested adoption for this pet.")
-
-#         return redirect('search_results')
-
-#     return redirect('search_results')
-
-
 def approve_decline_adoption(request, request_id):
     adoption_request = get_object_or_404(AdoptionRequest, pk=request_id)
 
@@ -432,10 +393,7 @@ def register_pet_and_health_status(request, request_id):
             })
 
     return render(request, 'register_pet_and_health_status.html', {'adoption_request': adoption_request})
-# Create your views here.
-def test(request):
-    employees = Employee.objects.all()
-    return render(request,'test.html',{'employees':employees})
+
 
 def crud_operations_employee(request):
     return render(request, 'crud_operations_employee.html')
@@ -661,39 +619,6 @@ def supplies(request):
 def ordered(request):
     return render(request,'ordered.html')
 
-# from .models import PetSupply, SupplyOrder
-
-# @login_required
-# def proceed_to_payment(request):
-#     cart = request.session.get('cart', {})
-#     user = request.user
-
-#     if not cart:
-#         # If the cart is empty, redirect to the cart page with a message
-#         return redirect('cart_page')
-
-#     # Process each item in the cart
-#     for supply_id, quantity in cart.items():
-#         try:
-#             supply_item = PetSupply.objects.get(supply_id=supply_id)
-#             total_price = supply_item.unit_price * quantity
-
-#             # Create a new SupplyOrder entry for each cart item
-#             SupplyOrder.objects.create(
-#                 user=user,
-#                 product=supply_item,
-#                 quantity=quantity,
-#                 total_price=total_price
-#             )
-#         except PetSupply.DoesNotExist:
-#             continue
-
-#     # Clear the cart after saving the order
-#     request.session['cart'] = {}
-
-#     # Redirect to a confirmation page or success message
-#     return redirect('supplies')
-
 def book_appointment(request):
     if request.method == 'POST':
         pet_id = request.POST.get('pet_id')
@@ -739,12 +664,6 @@ def view_contacts(request):
         'branches': branches,
     }
     return render(request, 'view_contacts.html', context)
-
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
-from django.contrib.auth.decorators import login_required
-import pdfkit
-from .models import HealthStatus  # Adjust the import as needed
 
 # Configuration for pdfkit
 # config = pdfkit.configuration(wkhtmltopdf=r"C:/Program Files/wkhtmltopdf/bin/wkhtmltopdf.exe")
