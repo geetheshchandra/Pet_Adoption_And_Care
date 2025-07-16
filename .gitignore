@@ -1,2 +1,4 @@
 django/
 .env
+*.json
+db.sqlite3
